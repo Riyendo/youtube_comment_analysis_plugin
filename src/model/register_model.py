@@ -7,11 +7,18 @@ import os
 import dagshub
 
 # Set up MLflow tracking URI
-dagshub.init(
-    repo_owner="gauravrajt167iwari",
-    repo_name="yt_comment",
-    mlflow=True
-    )
+import dagshub
+dagshub_token = os.getenv("DAGSHUB_PAT")
+if not dagshub_token:
+    raise EnvironmentError("DAGSHUB_PAT environment variable is not set")
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
+dagshub_url = "https://dagshub.com"
+repo_owner = "gauravrajt167iwari"
+repo_name = "yt_comment"
+
 
 
 # logging configuration
